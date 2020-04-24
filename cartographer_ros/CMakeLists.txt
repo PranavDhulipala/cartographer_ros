@@ -27,12 +27,17 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra)
 endif()
 
+if(MSVC)
+  add_compile_definitions(
+    _USE_MATH_DEFINES)
+endif()
+
 find_package(cartographer REQUIRED)
 include("${CARTOGRAPHER_CMAKE_DIR}/functions.cmake")
 set(BUILD_SHARED_LIBS OFF)
 option(BUILD_GRPC "build features that require Cartographer gRPC support" false)
 
-google_initialize_cartographer_project()
+# google_initialize_cartographer_project()
 # google_enable_testing()
 
 find_package(cartographer_ros_msgs REQUIRED)
@@ -51,7 +56,7 @@ find_package(visualization_msgs REQUIRED)
 
 include(FindPkgConfig)
 
-find_package(LuaGoogle REQUIRED)
+find_package(Lua REQUIRED)
 find_package(PCL REQUIRED COMPONENTS common)
 find_package(Eigen3 REQUIRED)
 # find_package(Boost REQUIRED COMPONENTS system iostreams)

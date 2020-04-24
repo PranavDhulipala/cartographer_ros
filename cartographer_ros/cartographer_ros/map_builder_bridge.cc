@@ -24,6 +24,10 @@
 #include "cartographer_ros_msgs/msg/status_code.hpp"
 #include "cartographer_ros_msgs/msg/status_response.hpp"
 
+#if defined(_WIN32) && defined(DELETE)
+#undef DELETE
+#endif
+
 namespace cartographer_ros {
 namespace {
 
