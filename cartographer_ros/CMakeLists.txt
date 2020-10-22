@@ -37,6 +37,15 @@ include("${CARTOGRAPHER_CMAKE_DIR}/functions.cmake")
 set(BUILD_SHARED_LIBS OFF)
 option(BUILD_GRPC "build features that require Cartographer gRPC support" false)
 
+get_property(CARTOGRAHPER_CONFIGURATION_DIR TARGET cartographer PROPERTY IMPORTED_LOCATION_RELEASE)
+get_filename_component(CARTOGRAHPER_CONFIGURATION_DIR "${CARTOGRAHPER_CONFIGURATION_DIR}" PATH)
+get_filename_component(CARTOGRAHPER_CONFIGURATION_DIR "${CARTOGRAHPER_CONFIGURATION_DIR}" PATH)
+set(CARTOGRAHPER_CONFIGURATION_DIR "${CARTOGRAHPER_CONFIGURATION_DIR}/share/cartographer/configuration_files")
+if(NOT EXISTS "${CARTOGRAHPER_CONFIGURATION_DIR}")
+  message(FATAL_ERROR "Cannot locate the CARTOGRAHPER_CONFIGURATION_DIR: ${CARTOGRAHPER_CONFIGURATION_DIR}")
+endif()
+configure_file(cartographer_ros/config.h.in cartographer_ros/config.h)
+
 # google_initialize_cartographer_project()
 # google_enable_testing()
 

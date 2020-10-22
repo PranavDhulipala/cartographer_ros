@@ -27,6 +27,7 @@
 #include "cartographer_ros_msgs/StartTrajectory.h"
 #include "cartographer_ros_msgs/StatusCode.h"
 #include "cartographer_ros_msgs/TrajectoryOptions.h"
+#include "cartographer_ros/config.h"
 #include "gflags/gflags.h"
 #include "ros/ros.h"
 
@@ -46,7 +47,7 @@ namespace {
 TrajectoryOptions LoadOptions() {
   auto file_resolver = cartographer::common::make_unique<
       cartographer::common::ConfigurationFileResolver>(
-      std::vector<std::string>{FLAGS_configuration_directory});
+      std::vector<std::string>{FLAGS_configuration_directory, CARTOGRAHPER_CONFIGURATION_DIR});
   const std::string code =
       file_resolver->GetFileContentOrDie(FLAGS_configuration_basename);
   auto lua_parameter_dictionary =
@@ -56,7 +57,7 @@ TrajectoryOptions LoadOptions() {
     auto initial_trajectory_pose_file_resolver =
         cartographer::common::make_unique<
             cartographer::common::ConfigurationFileResolver>(
-            std::vector<std::string>{FLAGS_configuration_directory});
+            std::vector<std::string>{FLAGS_configuration_directory, CARTOGRAHPER_CONFIGURATION_DIR});
     auto initial_trajectory_pose =
         cartographer::common::LuaParameterDictionary::NonReferenceCounted(
             "return " + FLAGS_initial_pose,

@@ -15,6 +15,7 @@
  */
 
 #include "cartographer_ros/node_options.h"
+#include "cartographer_ros/config.h"
 
 #include <vector>
 
@@ -48,7 +49,7 @@ std::tuple<NodeOptions, TrajectoryOptions> LoadOptions(
     const std::string& configuration_basename) {
   auto file_resolver = cartographer::common::make_unique<
       cartographer::common::ConfigurationFileResolver>(
-      std::vector<std::string>{configuration_directory});
+      std::vector<std::string>{configuration_directory, CARTOGRAHPER_CONFIGURATION_DIR});
   const std::string code =
       file_resolver->GetFileContentOrDie(configuration_basename);
   cartographer::common::LuaParameterDictionary lua_parameter_dictionary(

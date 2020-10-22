@@ -38,6 +38,7 @@
 #include "cartographer_ros/split_string.h"
 #include "cartographer_ros/time_conversion.h"
 #include "cartographer_ros/urdf_reader.h"
+#include "cartographer_ros/config.h"
 #include "gflags/gflags.h"
 #include "glog/logging.h"
 #include "ros/ros.h"
@@ -81,7 +82,7 @@ std::unique_ptr<carto::common::LuaParameterDictionary> LoadLuaDictionary(
     const std::string& configuration_basename) {
   auto file_resolver =
       carto::common::make_unique<carto::common::ConfigurationFileResolver>(
-          std::vector<std::string>{configuration_directory});
+          std::vector<std::string>{configuration_directory, CARTOGRAHPER_CONFIGURATION_DIR});
 
   const std::string code =
       file_resolver->GetFileContentOrDie(configuration_basename);
