@@ -16,7 +16,7 @@ cmake_minimum_required (VERSION 2.8.7)
 
 project(cartographer_ros_docs)
 
-find_package(Sphinx)
+find_package(Sphinx QUIET)
 if(SPHINX_FOUND)
   set(OUTPUT_DIR "${PROJECT_BINARY_DIR}/docs/html")
   add_custom_target(build_doc_ros ALL
